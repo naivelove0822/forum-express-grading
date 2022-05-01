@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4">
     <img class="img-responsive center-block" src="{{user.image}}"
-      style="width: 350px; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+      style="width: 200px; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
     <br>
   </div>
 
@@ -9,30 +9,112 @@
     <p style="white-space: break-spaces;">{{user.name}}</p>
     <p style="white-space: break-spaces;">{{user.email}}</p>
     <p>{{#if comment.count}}
-    {{user.name}}已評論餐廳
-    {{else}}
-    未評論餐廳
-    {{/if}}</p>
+      {{comment.count}}已評論餐廳
+      {{else}}
+      未評論餐廳
+      {{/if}}</p>
+    <p>{{user.FavoritedRestaurants.length}}收藏的餐廳</p>
+    <p>{{user.Followings.length}}followings(追蹤中)</p>
+    <p>{{user.Followers.length}}followers(粉絲數)</p>
+    {{#ifCond user.id userId}}
     <a class="btn btn-primary" href="/users/{{user.id}}/edit">edit</a>
+    {{/ifCond}}
   </div>
   <hr>
 
-  <div class="card mt-5">
-    <div class="card-header">
-      {{#if comment.count}}
-      {{user.name}}已評論餐廳數量{{comment.count}}
-      {{else}}
-      未評論餐廳
-      {{/if}}
-    </div>
-    <div class="card-body" style="min-height: 100px">
-      {{#each comment.rows}}
-      <a href="/restaurants/{{this.restaurantId}}" class="text-text-decoration-none">
-        <img src="{{Restaurant.image}}" alt="center-block img-responsive img-thumbnail m-2"
-          style="width: 80px; height:80px" alt="餐廳圖片">
-      </a>
-      {{/each}}
-    </div>
-  </div>
-  </div>
+  <div class="row">
 
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          {{#if user.Followings.length}}
+          {{user.Followings.length}} following(追蹤中)
+          {{else}}
+          未追蹤任何人
+          {{/if}}
+        </div>
+        <div class="card-body" style="min-height: 100px">
+          {{#each user.Followings}}
+          {{#if this.image}}
+          <a href="/users/{{this.id}}" class="text-text-decoration-none">
+            <img src="{{this.image}}" alt="center-block img-responsive img-thumbnail m-2"
+              style="width: 80px; height:80px" alt="餐廳圖片">
+          </a>
+          {{else}}
+          <img src="https://via.placeholder.com/80" width="80px" height="80px" />
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          {{#if comment.count}}
+          {{comment.count}} 已評論餐廳數量
+          {{else}}
+          未評論餐廳
+          {{/if}}
+        </div>
+        <div class="card-body" style="min-height: 100px">
+          {{#each comment.rows}}
+          <a href="/restaurants/{{this.restaurantId}}" class="text-text-decoration-none">
+            <img src="{{Restaurant.image}}" alt="center-block img-responsive img-thumbnail m-2"
+              style="width: 80px; height:80px" alt="餐廳圖片">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          {{#if user.Followers.length}}
+          {{user.Followers.length}} follower(粉絲數)
+          {{else}}
+          沒有人追蹤你QQ
+          {{/if}}
+        </div>
+        <div class="card-body" style="min-height: 100px">
+          {{#each user.Followers}}
+          {{#if this.image}}
+          <a href="/users/{{this.id}}" class="text-text-decoration-none">
+            <img src="{{this.image}}" alt="center-block img-responsive img-thumbnail m-2" style="width: 80px; height:80px"
+              alt="餐廳圖片">
+          </a>
+          {{else}}
+          <img src="https://via.placeholder.com/80" width="80px" height="80px" />
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          {{#if user.FavoritedRestaurants.length}}
+          {{user.FavoritedRestaurants.length}}收藏的餐廳
+          {{else}}
+          未收藏餐廳
+          {{/if}}
+        </div>
+        <div class="card-body" style="min-height: 100px">
+          {{#each user.FavoritedRestaurants}}
+          {{#if this.image}}
+          <a href="/restaurants/{{this.id}}" class="text-text-decoration-none">
+            <img src="{{this.image}}" alt="center-block img-responsive img-thumbnail m-2" style="width: 80px; height:80px"
+              alt="餐廳圖片">
+          </a>
+          {{else}}
+          <img src="https://via.placeholder.com/80" width="80px" height="80px" />
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -67,7 +67,7 @@ const restaurantController = {
   getDashboard: (req, res, next) => {
     return Promise.all([
       Restaurant.findByPk(req.params.id, {
-        include: [Category, { model: User, as: 'FavoritedUsers' }],
+        include: Category,
         raw: true,
         nest: true
       }),
