@@ -56,7 +56,8 @@ const userController = {
       })
     ])
       .then(([user, comment]) => {
-        res.render('users/profile', { user: user.toJSON(), comment, userId })
+        user = user.get({ plain: true })
+        res.render('users/profile', { user, comment, userId })
       })
       .catch(err => next(err))
   },
