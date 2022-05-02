@@ -120,7 +120,7 @@ const restaurantController = {
     })
       .then(restaurants => {
         const result = restaurants.map(restaurant => ({
-          ...restaurant.toJSON(),
+          ...restaurant.get({ plain: true }),
           favoritedCount: restaurant.FavoritedUsers.length,
           isFavorited: req.user && req.user.FavoritedRestaurants.some(f => f.id === restaurant.id)
         }))
